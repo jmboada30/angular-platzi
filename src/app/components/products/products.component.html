@@ -1,0 +1,15 @@
+<p>Cantidad: {{ storeSvc.shoppingCart.length }}</p>
+<p>Total: ${{ total }}</p>
+<p>Hoy: {{ today | date }}</p>
+<p>{{ today | timeAgo }}</p>
+<p>{{ "El murcielago cambio sus vocales" | vocales }}</p>
+<p>{{ "ToDo SerA EN mayuscula" | uppercase }}</p>
+<p>{{ "ToDo SerA EN reversa y minuscula" | reverse | lowercase }}</p>
+
+<div class="products--grid">
+  <app-product
+    *ngFor="let product of products"
+    [product]="product"
+    (addedProduct)="onAddToShoppingCard($event)"
+  ></app-product>
+</div>

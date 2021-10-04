@@ -22,6 +22,8 @@ export class ImgComponent
 
   // usando el "set" de Ts podemos detectar cuando cambie este @Input
   // y ejecutar cualquie codigo en respuesta a este evento.
+
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('img') set changeImg(img: string) {
     this.img = img;
     console.log('change img', img);
@@ -30,8 +32,8 @@ export class ImgComponent
 
   @Output() loaded = new EventEmitter<string>();
   imgDefault: string = 'https://www.m2crowd.com/core/i/placeholder.png';
-  counter: number = 0;
-  counterFn: number | undefined;
+  // counter: number = 0;
+  // counterFn: number | undefined;
 
   constructor() {
     // Before render
@@ -53,10 +55,10 @@ export class ImgComponent
     // Permitido llamar cosas asyncronas
     console.log('ngOnInit', 'imgValue =>', this.img);
 
-    this.counterFn = window.setInterval(() => {
-      ++this.counter;
-      console.log('counter :>> ', this.counter);
-    }, 1000);
+    // this.counterFn = window.setInterval(() => {
+    //   ++this.counter;
+    //   console.log('counter :>> ', this.counter);
+    // }, 1000);
   }
 
   ngAfterViewInit(): void {
@@ -72,7 +74,7 @@ export class ImgComponent
 
     // Siempre debemos limpiar procesos que se esten ejecutando en segundo plano
     // Usamos el OnDestroy para eso
-    window.clearInterval(this.counterFn);
+    // window.clearInterval(this.counterFn);
   }
 
   imgError() {
@@ -80,7 +82,6 @@ export class ImgComponent
   }
 
   imgLoaded() {
-    console.log('Log hijo');
     this.loaded.emit(this.img);
   }
 }
