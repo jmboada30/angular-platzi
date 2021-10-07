@@ -1,4 +1,21 @@
 <app-nav></app-nav>
+<div>
+  <button (click)="createUser()">Create User</button>
+</div>
+<p>
+  <a href="./assets/files/texto.txt" download>Descargar localmente</a>
+</p>
+
+<p>
+  <button (click)="downloadPDF()" >Descargar PDF de Internet</button>
+</p>
+<p>
+  <input type="file" (change)="uploadFile($event)">
+  <img *ngIf="imgUploaded" [src]="imgUploaded" alt="">
+</p>
+
+
+
 
 <app-products></app-products>
 

@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   showProductDetail = false;
   productChosen: Product = this.productsSvc.productInit;
-  limit = 10;
+  limit = 3;
   offset = 0;
 
   constructor(

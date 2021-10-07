@@ -5,12 +5,15 @@ import {
   CreateProductDTO,
   UpdateProductDTO,
 } from '../models/product.model';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { checkTime } from '../interceptors/time.interceptor';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private url = `https://young-sands-07814.herokuapp.com/api/products`;
+  private url = `${environment.API_URL}/api/products`;
   readonly productInit = {
     id: '',
     title: '',
@@ -28,11 +31,19 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(this.url, { params });
+    return this.http
+      .get<Product[]>(this.url, { params })
+      .pipe(
+        map((products) =>
+          products.map((item) => ({ ...item, taxes: item.price * 0.19 }))
+        )
+      );
   }
 
   getById(id: string) {
-    return this.http.get<Product>(`${this.url}/${id}`);
+    return this.http.get<Product>(`${this.url}/${id}`, {
+      context: checkTime(), // <- a la peticion le decimos que si queremos medirla con el interceptor de tiempo
+    });
   }
 
   create(dto: CreateProductDTO) {
